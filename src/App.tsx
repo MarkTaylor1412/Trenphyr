@@ -3,18 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/forms/SigninForm";
 import SignupForm from "./_auth/forms/SignupForm";
-// import UploadFormTest from "./_auth/forms/UploadFormTest";
 
 import RootLayout from "./_root/RootLayout";
-import { AllUsers, Contribution, CreatePost, EditPost, Explore, Home, PostDetails, Profile, Saved, UpdateProfile } from "./_root/pages";
+import { AllUsers, CreatePost, EditPost, Explore, Home, PostDetails, Profile, Saved, UpdateProfile } from "./_root/pages";
 
 import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
-
-import { DataTable } from "./contributions/DataTable";
-
-import UserComponent from "./contributions/UserComponent";
 
 const App = () => {
   return (
@@ -24,7 +19,6 @@ const App = () => {
         <Route element={<AuthLayout />}>
           <Route path="/sign-in" element={<SigninForm />} />
           <Route path="/sign-up" element={<SignupForm />} />
-          {/* <Route path="/upload-form" element={<UploadFormTest />} /> */}
         </Route>
 
         {/* private routes */}
@@ -38,9 +32,6 @@ const App = () => {
           <Route path="/posts/:id" element={<PostDetails />} />
           <Route path="/profile/:id/*" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
-          {/* <Route path="/contribution" element={<Contribution />} /> */}
-          <Route path="/contribution" element={<DataTable columns={[]} data={[]} />} />
-          <Route path="/user-component" element={<UserComponent />} />
         </Route>
       </Routes>
 
