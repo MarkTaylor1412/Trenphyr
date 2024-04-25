@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "../ui/textarea"
+import FileUploader from "../shared/FileUploader"
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -47,52 +48,59 @@ const PostForm = () => {
             <FormItem>
               <FormLabel className="shad-form_label">Caption</FormLabel>
               <FormControl>
-                <Textarea className="shad-textarea custom-scrollbar" placeholder="shadcn" {...field} />
+                <Textarea className="shad-textarea custom-scrollbar" placeholder="Something awesome definitely..." {...field} />
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
-          name="caption"
+          name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Caption</FormLabel>
+              <FormLabel className="shad-form_label">Add Photos</FormLabel>
               <FormControl>
-                <Textarea className="shad-textarea custom-scrollbar" placeholder="shadcn" {...field} />
+                <FileUploader />
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
-          name="caption"
+          name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Caption</FormLabel>
+              <FormLabel className="shad-form_label">Add Location</FormLabel>
               <FormControl>
-                <Textarea className="shad-textarea custom-scrollbar" placeholder="shadcn" {...field} />
+                <Input type="text" className="shad-input"/>
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
-          name="caption"
+          name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Caption</FormLabel>
+              <FormLabel className="shad-form_label">Add Tags (comma for separation, ",")</FormLabel>
               <FormControl>
-                <Textarea className="shad-textarea custom-scrollbar" placeholder="shadcn" {...field} />
+                <Input type="text" className="shad-input" placeholder="DIY, Trending, Sports"/>
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+
+        <div className="flex justify-center items-center gap-4">
+          <Button type="button" className="shad-button_dark_4">Cancel</Button>
+          <Button type="submit" className="shad-button_primary whitespace-nowrap">Submit</Button>
+        </div>
       </form>
     </Form>
   )
