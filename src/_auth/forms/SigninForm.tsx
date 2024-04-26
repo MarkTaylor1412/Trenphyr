@@ -10,8 +10,8 @@ import { useToast } from "@/components/ui/use-toast"
 // import { Checkbox } from "@/components/ui/checkbox"
 import Loader from "@/components/shared/Loader"
 
-import { SigninValidation } from "@/lib/validation"
-import { useSignInAccountMutation } from "@/lib/react-query/queriesAndMutations"
+import { SignInValidation } from "@/lib/validation"
+import { signInAccountMutation } from "@/lib/react-query/queriesAndMutations"
 import { useUserContext } from "@/context/AuthContext"
 
 const SigninForm = () => {
@@ -19,11 +19,11 @@ const SigninForm = () => {
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
   const navigate = useNavigate();
 
-  const { mutateAsync: signInAccount } = useSignInAccountMutation();
+  const { mutateAsync: signInAccount } = signInAccountMutation();
 
   // 1. Define your form.
-  const form = useForm<z.infer<typeof SigninValidation>>({
-    resolver: zodResolver(SigninValidation),
+  const form = useForm<z.infer<typeof SignInValidation>>({
+    resolver: zodResolver(SignInValidation),
     defaultValues: {
       email: "",
       password: "",
@@ -31,7 +31,7 @@ const SigninForm = () => {
   })
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof SigninValidation>) {
+  async function onSubmit(values: z.infer<typeof SignInValidation>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
