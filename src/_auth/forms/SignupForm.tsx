@@ -11,17 +11,17 @@ import { useToast } from "@/components/ui/use-toast"
 import Loader from "@/components/shared/Loader"
 
 import { SignUpValidation } from "@/lib/validation"
-import { createUserAccountMutation, signInAccountMutation } from "@/lib/react-query/queriesAndMutations"
+import { createUserMutation, signInMutation } from "@/lib/react-query/queriesAndMutations"
 import { useUserContext } from "@/context/AuthContext"
 
-const SignupForm = () => {
+const SignUpForm = () => {
   const { toast } = useToast()
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
   const navigate = useNavigate();
 
-  const { mutateAsync: createUserAccount, isPending: isCreatingUser } = createUserAccountMutation();
+  const { mutateAsync: createUserAccount, isPending: isCreatingUser } = createUserMutation();
 
-  const { mutateAsync: signInAccount, isPending: isSigningIn } = signInAccountMutation();
+  const { mutateAsync: signInAccount, isPending: isSigningIn } = signInMutation();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignUpValidation>>({
@@ -154,4 +154,4 @@ const SignupForm = () => {
   )
 }
 
-export default SignupForm
+export default SignUpForm

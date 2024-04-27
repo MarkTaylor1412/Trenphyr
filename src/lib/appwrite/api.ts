@@ -1,9 +1,8 @@
 import { INewPost, INewUser } from "@/types";
 import { account, appwriteConfig, avatars, databases, storage } from "./config";
-import { ID, Permission, Query } from "appwrite";
-import { string } from "zod";
+import { ID, Query } from "appwrite";
 
-export async function createUserAccount(user: INewUser) {
+export async function createUser(user: INewUser) {
     try {
         const newAccount = await account.create(
             ID.unique(),
@@ -16,7 +15,7 @@ export async function createUserAccount(user: INewUser) {
 
         const avatarUrl = avatars.getInitials(user.name);
 
-        const newUser = await saveUserToDB({
+        const newUser = await saveUser({
             accountId: newAccount.$id,
             name: newAccount.name,
             email: newAccount.email,
@@ -31,7 +30,7 @@ export async function createUserAccount(user: INewUser) {
     }
 }
 
-export async function saveUserToDB(user: {
+export async function saveUser(user: {
     accountId: string;
     email: string;
     name: string;
@@ -52,12 +51,12 @@ export async function saveUserToDB(user: {
     }
 }
 
-export async function signInAccount(user: {
+export async function signIn(user: {
     email: string;
     password: string;
 }) {
     try {
-        const session = await account.createSession(user.email, user.password);
+        const session = await account.createEmailPasswordSession(user.email, user.password);
 
         return session;
     } catch (error) {
@@ -83,7 +82,7 @@ export async function getCurrentUser() {
     }
 }
 
-export async function signOutAccount() {
+export async function signOut() {
     try {
         const session = await account.deleteSession("current");
 
