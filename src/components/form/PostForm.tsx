@@ -8,17 +8,13 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "../ui/textarea"
 import FileUploader from "../shared/FileUploader"
 import { PostValidation } from "@/lib/validation"
-import { Models } from "appwrite"
 import { useUserContext } from "@/context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "../ui/use-toast"
+import { PostProps } from "@/types"
 import { createPostMutation } from "@/lib/react-query/queriesAndMutations"
 
-type PostProps = {
-  post?: Models.Document;
-}
-
-const PostForm = ({ post }: PostProps) => {
+const PostForm = ({ post, action }: PostProps) => {
   const { mutateAsync: createPost, isPending: isLoadingCreate } = createPostMutation();
   const { user } = useUserContext();
   const { toast } = useToast();

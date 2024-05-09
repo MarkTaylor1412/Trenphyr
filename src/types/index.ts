@@ -1,8 +1,10 @@
+import { Models } from "appwrite";
+
 export type INavLink = {
   imgURL: string;
   route: string;
   label: string;
-};
+}
 
 export type IUpdateUser = {
   userId: string;
@@ -11,7 +13,7 @@ export type IUpdateUser = {
   imageId: string;
   imageUrl: URL | string;
   file: File[];
-};
+}
 
 export type INewPost = {
   userId: string;
@@ -19,7 +21,7 @@ export type INewPost = {
   file: File[];
   location?: string;
   tags?: string;
-};
+}
 
 export type IUpdatePost = {
   postId: string;
@@ -29,7 +31,7 @@ export type IUpdatePost = {
   file: File[];
   location?: string;
   tags?: string;
-};
+}
 
 export type IUser = {
   id: string;
@@ -38,14 +40,14 @@ export type IUser = {
   email: string;
   imageUrl: string;
   bio: string;
-};
+}
 
 export type INewUser = {
   name: string;
   email: string;
   username: string;
   password: string;
-};
+}
 
 export type IContextType = {
   user: IUser;
@@ -54,10 +56,18 @@ export type IContextType = {
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   checkAuthUser: () => Promise<boolean>;
-};
+}
 
-// export type Contribution = {
-//   id: IUser;
-//   title: string;
-//   faculty: string;
-// };
+export type PostProps = {
+  post?: Models.Document;
+  action: "Create" | "Update";
+}
+
+export type CardProps = {
+  post: Models.Document;
+}
+
+export type StatsProps = {
+  post: Models.Document;
+  userId: string;
+}

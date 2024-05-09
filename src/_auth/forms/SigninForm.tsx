@@ -64,9 +64,9 @@ const SignInForm = () => {
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/logo.svg" alt="logo" />
+        <img src="/assets/images/logo.png" alt="logo" />
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Sign in to your account</h2>
-        <p className="text-light-3 small-medium md:base-regular pt-2">Welcome back!</p>
+        <p className="text-dark-3 small-medium md:base-regular pt-2">Welcome back!</p>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
           <FormField
@@ -107,7 +107,7 @@ const SignInForm = () => {
             ) : "Sign in"}
           </Button>
 
-          <p className="text-small-regular text-light-2 text-center mt-2">
+          <p className="text-small-regular text-dark-2 text-center mt-2">
             Don't have an account? <Link to="/sign-up" className="text-primary-500 text-small-semibold">Sign up</Link></p>
         </form>
       </div>

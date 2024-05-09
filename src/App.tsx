@@ -5,7 +5,7 @@ import SignInForm from "./_auth/forms/SignInForm";
 import SignUpForm from "./_auth/forms/SignUpForm";
 
 import RootLayout from "./_root/RootLayout";
-import { AllUsers, CreatePost, EditPost, Explore, Home, PostDetails, Profile, Saved, UpdateProfile } from "./_root/pages";
+import { CreatePost, EditPost, Explore, Home, PostDetails, Profile, Saved, UpdateProfile } from "./_root/pages";
 
 import { Toaster } from "@/components/ui/toaster";
 
@@ -26,7 +26,6 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} />
-          <Route path="/all-users" element={<AllUsers />} />
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/update-post/:id" element={<EditPost />} />
           <Route path="/posts/:id" element={<PostDetails />} />
