@@ -77,9 +77,13 @@ const SignUpForm = () => {
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/logo.png" alt="logo" />
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create a new account</h2>
-        <p className="text-dark-3 small-medium md:base-regular pt-2">Enter your details to create</p>
+        <img
+          src="/assets/images/logo.png"
+          alt="logo"
+        />
+
+        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-2">Sign up an account</h2>
+        <p className="text-dark-3 small-medium md:base-regular pt-2">Sign up to join the community.</p>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
           <FormField
@@ -89,7 +93,7 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="text" className="input" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -102,7 +106,7 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" className="shad-input" {...field} />
+                  <Input type="email" className="input" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -115,7 +119,7 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="text" className="input" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -128,7 +132,7 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" className="shad-input" {...field} />
+                  <Input type="password" className="input" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -138,7 +142,7 @@ const SignUpForm = () => {
           {/* <Checkbox
           /> */}
 
-          <Button type="submit" className="shad-button_primary">
+          <Button type="submit" className="button-primary">
             {isCreatingUser ? (
               <div className="flex-center gap-2">
                 <Loader />Loading ...

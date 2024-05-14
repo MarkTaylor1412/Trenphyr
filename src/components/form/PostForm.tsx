@@ -12,10 +12,12 @@ import { useUserContext } from "@/context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "../ui/use-toast"
 import { PostProps } from "@/types"
-import { createPostMutation } from "@/lib/react-query/queriesAndMutations"
+import { createPostMutation, editPostMutation } from "@/lib/react-query/queriesAndMutations"
 
 const PostForm = ({ post, action }: PostProps) => {
   const { mutateAsync: createPost, isPending: isLoadingCreate } = createPostMutation();
+  const { mutateAsync: editPost, isPending: isLoadingEdit } = editPostMutation();
+
   const { user } = useUserContext();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -32,13 +34,31 @@ const PostForm = ({ post, action }: PostProps) => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof PostValidation>) {
+    if (post && action === "Update") {
+      const updatedPost = await editPost({
+        ...values,
+        postId: post.$id,
+        imageUrl: post?.imageUrl,
+        imageId: post?.imageId,
+      });
+
+      if (!updatedPost) {
+        toast({ title: "Failed to update post. Please try again later!" });
+        console.log(values);
+      }
+
+      toast({ title: "Post updated!" });
+      navigate(`/posts/${post.$id}`);
+      console.log(values);
+    }
+
     const newPost = await createPost({
       ...values,
       userId: user.id,
     });
 
     if (!newPost) {
-      toast({ title: "Something went wrong. Please try again later!" });
+      toast({ title: "Failed to create post. Please try again later!" });
       console.log(values);
     };
 
@@ -55,11 +75,11 @@ const PostForm = ({ post, action }: PostProps) => {
           name="caption"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Caption</FormLabel>
+              <FormLabel className="form-label">Caption</FormLabel>
               <FormControl>
-                <Textarea className="shad-textarea custom-scrollbar" placeholder="Something awesome definitely..." {...field} />
+                <Textarea className="textarea custom-scrollbar" placeholder="Definitely something awesome." {...field} />
               </FormControl>
-              <FormMessage className="shad-form_message" />
+              <FormMessage className="form-message" />
             </FormItem>
           )}
         />
@@ -69,14 +89,14 @@ const PostForm = ({ post, action }: PostProps) => {
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add Photos</FormLabel>
+              <FormLabel className="form-label">Add Photos</FormLabel>
               <FormControl>
                 <FileUploader
                   fieldChange={field.onChange}
                   mediaUrl={post?.imageUrl}
                 />
               </FormControl>
-              <FormMessage className="shad-form_message" />
+              <FormMessage className="form-message" />
             </FormItem>
           )}
         />
@@ -86,11 +106,11 @@ const PostForm = ({ post, action }: PostProps) => {
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add Location</FormLabel>
+              <FormLabel className="form-label">Add Location</FormLabel>
               <FormControl>
-                <Input type="text" className="shad-input" {...field} />
+                <Input type="text" className="input" placeholder="Your favourite places." {...field} />
               </FormControl>
-              <FormMessage className="shad-form_message" />
+              <FormMessage className="form-message" />
             </FormItem>
           )}
         />
@@ -100,18 +120,24 @@ const PostForm = ({ post, action }: PostProps) => {
           name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add Tags (comma for separation, ",")</FormLabel>
+              <FormLabel className="form-label">Add Tags (comma for separation, ",")</FormLabel>
               <FormControl>
-                <Input type="text" className="shad-input" placeholder="DIY, Trending, Sports" {...field} />
+                <Input type="text" className="input" placeholder="DIY, Trending, Sports, etc." {...field} />
               </FormControl>
-              <FormMessage className="shad-form_message" />
+              <FormMessage className="form-message" />
             </FormItem>
           )}
         />
 
         <div className="flex justify-center items-center gap-4">
-          <Button type="button" className="shad-button_dark_4">Cancel</Button>
-          <Button type="submit" className="shad-button_primary whitespace-nowrap">Submit</Button>
+          <Button
+            type="submit"
+            className="w-full p-7 button-primary whitespace-nowrap"
+            disabled={isLoadingCreate || isLoadingEdit}
+          >
+            {action}
+            {isLoadingCreate || isLoadingEdit && "..."}
+          </Button>
         </div>
       </form>
     </Form>

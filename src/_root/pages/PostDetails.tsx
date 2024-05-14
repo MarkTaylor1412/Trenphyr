@@ -34,8 +34,8 @@ const PostDetails = () => {
                 />
 
                 <div className="flex flex-col">
-                  <p className="base-medium lg:body-bold text-light-1">{post?.creator.name}</p>
-                  <div className="flex-center gap-2 text-light-3">
+                  <p className="base-medium lg:body-bold text-dark-1">{post?.creator.username}</p>
+                  <div className="flex-center gap-2 text-dark-3">
                     <p className="subtle-semibold lg:small-regular">{formatDate(post?.$createdAt)}</p>
                     •
                     <p className="subtle-semibold lg:small-regular">{post?.location}</p>
@@ -70,7 +70,7 @@ const PostDetails = () => {
               </div>
             </div>
 
-            <hr className="w-full border border-dark-4/80" />
+            <hr className="w-full border border-light-4/80" />
             <div className="flex flex-1 flex-col w-full small-medium lg:base-regular">
               <p>{post?.caption}</p>
               <ul className="flex gap-2 mt-2">

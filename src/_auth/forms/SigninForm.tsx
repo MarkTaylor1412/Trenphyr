@@ -64,9 +64,13 @@ const SignInForm = () => {
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/logo.png" alt="logo" />
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Sign in to your account</h2>
-        <p className="text-dark-3 small-medium md:base-regular pt-2">Welcome back!</p>
+        <img
+          src="/assets/images/logo.png"
+          alt="logo"
+        />
+
+        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-2">Sign in to your account</h2>
+        <p className="text-dark-3 small-medium md:base-regular pt-2">Sign in to go back where you left off.</p>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
           <FormField
@@ -76,7 +80,7 @@ const SignInForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" className="shad-input" {...field} />
+                  <Input type="email" className="input" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -89,7 +93,7 @@ const SignInForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" className="shad-input" {...field} />
+                  <Input type="password" className="input" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -99,7 +103,7 @@ const SignInForm = () => {
           {/* <Checkbox
           /> */}
 
-          <Button type="submit" className="shad-button_primary">
+          <Button type="submit" className="button-primary">
             {isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader />Loading ...

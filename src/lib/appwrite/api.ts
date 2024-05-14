@@ -1,4 +1,4 @@
-import { INewPost, INewUser } from "@/types";
+import { INewPost, INewUser, IUpdatePost } from "@/types";
 import { account, appwriteConfig, avatars, databases, storage } from "./config";
 import { ID, ImageGravity, Query } from "appwrite";
 
@@ -247,15 +247,106 @@ export async function unsavePost(savedRecordId: string) {
     }
 }
 
-export async function getPostById(postId:string) {
+export async function getPostById(postId: string) {
     try {
         const post = await databases.getDocument(
             appwriteConfig.databaseId,
             appwriteConfig.postColId,
             postId,
         )
-        
+
         return post;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function editPost(post: IUpdatePost) {
+    const hasFileToUpdate = post.file.length > 0;
+
+    try {
+        let imageToUpdate = {
+            imageUrl: post.imageUrl,
+            imageId: post.imageId,
+        }
+
+        if (hasFileToUpdate) {
+            // Upload image to storage
+            const uploadedFile = await uploadFile(post.file[0]);
+            if (!uploadedFile) throw Error;
+
+            // Get image URL
+            const fileUrl = getFilePreview(uploadedFile.$id);
+            console.log({ fileUrl });
+            if (!fileUrl) {
+                deleteFile(uploadedFile.$id);
+                throw Error;
+            }
+
+            imageToUpdate = { ...imageToUpdate, imageUrl: fileUrl, imageId: uploadedFile.$id }
+
+            // Convert tags into an array
+            const tags = post.tags?.replace(/ /g, "").split(",") || [];
+
+            // Save to database
+            const updatedPost = await databases.updateDocument(
+                appwriteConfig.databaseId,
+                appwriteConfig.postColId,
+                post.postId,
+                {
+                    caption: post.caption,
+                    imageUrl: imageToUpdate.imageUrl,
+                    imageId: imageToUpdate.imageId,
+                    location: post.location,
+                    tags: tags,
+                }
+            )
+
+            if (!updatedPost) {
+                await deleteFile(post.imageId);
+                throw Error;
+            }
+
+            return updatedPost;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function infinitePosts({ pageParam }: { pageParam: number }) {
+    const queries: any[] = [Query.orderDesc("$createdAt"), Query.limit(10)];
+
+    if (pageParam) {
+        queries.push(Query.cursorAfter(pageParam.toString()));
+    }
+
+    try {
+        const posts = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.postColId,
+            queries,
+        )
+
+        if (!posts) throw Error;
+        return posts;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function searchPosts(searchTerm: string) {
+    try {
+        const posts = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.postColId,
+            [Query.search("caption", searchTerm)],
+        )
+
+        if (!posts) throw Error;
+        return posts;
+
     } catch (error) {
         console.log(error);
     }

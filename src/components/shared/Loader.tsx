@@ -4,7 +4,8 @@ const Loader = () => {
             <img src="/assets/icons/loader.svg"
                 alt="loader"
                 height={24}
-                width={24} />
+                width={24}
+            />
         </div>
     )
 }

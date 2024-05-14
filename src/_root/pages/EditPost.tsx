@@ -15,10 +15,10 @@ const EditPost = () => {
       <div className="common-container">
         <div className="w-full max-w-5xl flex-start gap-3 justify-start">
           <img
-            src="/assets/icons/add-post.svg"
+            src="/assets/icons/edit.svg"
             height={36}
             width={36}
-            alt="add"
+            alt="edit"
           />
           <h2 className="h3-bold md:h2-bold text-left w-full">Edit Post</h2>
         </div>
