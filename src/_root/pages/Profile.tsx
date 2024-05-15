@@ -16,13 +16,13 @@ const Profile = () => {
             className="rounded-xl"
           />
 
-          <h3>{user.name}</h3>
-          <p>@{user.username}</p>
+          <h3 className="base-medium lg:body-bold -mb-3">{user.name}</h3>
+          <p className="subtle-semibold lg:small-regular text-light-4">@{user.username}</p>
         </div>
 
         <div className="flex flex-col justify-center items-start gap-3">
-          <label>Email: {user.email}</label>
-          <label>Bio: n/a</label>
+          <label className="small-medium lg:base-medium">Email: {user.email}</label>
+          <label className="small-medium lg:base-medium">Bio: n/a</label>
         </div>
       </div>
     </div>

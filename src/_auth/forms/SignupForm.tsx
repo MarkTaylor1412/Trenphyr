@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
-// import { Checkbox } from "@/components/ui/checkbox"
 import Loader from "@/components/shared/Loader"
 
 import { SignUpValidation } from "@/lib/validation"
@@ -42,10 +41,7 @@ const SignUpForm = () => {
     // Create a user.
     const newUser = await createUserAccount(values);
     if (!newUser) {
-      return toast({
-        title: "Failed to sign up. Please try again.",
-        description: "Friday, February 10, 2023 at 5:57 PM",
-      });
+      return toast({ title: "Failed to sign up. Please try again." });
     }
 
     const session = await signInAccount({
@@ -54,10 +50,7 @@ const SignUpForm = () => {
     })
 
     if (!session) {
-      return toast({
-        title: "Failed to sign in. Please try again.",
-        description: "Friday, February 10, 2023 at 5:57 PM",
-      })
+      return toast({ title: "Failed to sign in. Please try again." })
     }
 
     const isLoggedIn = await checkAuthUser();
@@ -67,10 +60,7 @@ const SignUpForm = () => {
 
       navigate('/')
     } else {
-      return toast({
-        title: "Failed to sign up. Please try again.",
-        description: "Friday, February 10, 2023 at 5:57 PM",
-      })
+      return toast({ title: "Failed to sign up. Please try again." })
     }
   }
 

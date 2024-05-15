@@ -1,4 +1,4 @@
-import { INewPost, INewUser, IUpdatePost } from "@/types";
+import { INewPost, INewUser, IEditPost } from "@/types";
 import { account, appwriteConfig, avatars, databases, storage } from "./config";
 import { ID, ImageGravity, Query } from "appwrite";
 
@@ -261,7 +261,7 @@ export async function getPostById(postId: string) {
     }
 }
 
-export async function editPost(post: IUpdatePost) {
+export async function editPost(post: IEditPost) {
     const hasFileToUpdate = post.file.length > 0;
 
     try {

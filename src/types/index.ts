@@ -1,18 +1,9 @@
 import { Models } from "appwrite";
 
 export type INavLink = {
-  imgURL: string;
   route: string;
   label: string;
-}
-
-export type IUpdateUser = {
-  userId: string;
-  name: string;
-  bio: string;
-  imageId: string;
-  imageUrl: URL | string;
-  file: File[];
+  imgURL: string;
 }
 
 export type INewPost = {
@@ -23,7 +14,7 @@ export type INewPost = {
   tags?: string;
 }
 
-export type IUpdatePost = {
+export type IEditPost = {
   postId: string;
   caption: string;
   imageId: string;

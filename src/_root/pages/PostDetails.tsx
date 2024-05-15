@@ -55,18 +55,6 @@ const PostDetails = () => {
                     alt="edit"
                   />
                 </Link>
-
-                <Button
-                  variant="ghost"
-                  className={`ghost_details-delete_btn ${user.id !== post?.creator.$id && "hidden"}`}
-                >
-                  <img
-                    src="/assets/icons/delete.svg"
-                    height={20}
-                    width={20}
-                    alt="delete"
-                  />
-                </Button>
               </div>
             </div>
 
@@ -83,7 +71,7 @@ const PostDetails = () => {
             </div>
 
             <div className="w-full">
-                <PostStats post={post} userId={user.id} />
+              <PostStats post={post} userId={user.id} />
             </div>
           </div>
         </div>

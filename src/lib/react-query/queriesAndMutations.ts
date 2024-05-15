@@ -1,4 +1,4 @@
-import { INewPost, INewUser, IUpdatePost } from "@/types";
+import { INewPost, INewUser, IEditPost } from "@/types";
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createPost, createUser, editPost, getCurrentUser, getPostById, getRecentPosts, infinitePosts, likePost, savePost, searchPosts, signIn, signOut, unsavePost } from "../appwrite/api";
 import { QueryKeys } from "./queryKeys";
@@ -101,7 +101,7 @@ export const editPostMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: (post: IUpdatePost) => editPost(post),
+        mutationFn: (post: IEditPost) => editPost(post),
         onSuccess: (data) => {
             queryClient.invalidateQueries({queryKey: [QueryKeys.Get_Post_By_Id, data?.$id]});
         }
